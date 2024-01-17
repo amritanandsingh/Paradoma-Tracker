@@ -29,10 +29,12 @@ const Stopwatch = () => {
   };
 
   return (
-    <div>
-      <h1>Stopwatch</h1>
-      <p>{formatTime(seconds)}</p>
-      <button onClick={toggleTimer}>{isActive ? 'Pause' : 'Start'}</button>
+    <div className="container text-center mt-5">
+      <h1 className="display-4">Stopwatch</h1>
+      <p className="display-2">{formatTime(seconds)}</p>
+      <button className="btn btn-primary btn-lg" onClick={toggleTimer}>
+        {isActive ? 'Pause' : 'Start'}
+      </button>
     </div>
   );
 };
