@@ -1,1 +1,1 @@
-ok
+print("Hello")
