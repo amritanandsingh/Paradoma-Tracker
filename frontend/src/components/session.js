@@ -1,42 +1,62 @@
 import React, { useState, useEffect } from 'react';
 
 const PomodoroTimer = () => {
-    const [minutes, setMinutes] = useState(25);
-    const [seconds, setSeconds] = useState(0);
-  
-    useEffect(() => {
-      let timer;
-  
-      // Update the timer every second
-      const updateTimer = () => {
-        if (seconds > 0) {
-          setSeconds(seconds - 1);
+  const [minutes, setMinutes] = useState(25);
+  const [seconds, setSeconds] = useState(0);
+  const [isRunning, setIsRunning] = useState(true);
+
+  useEffect(() => {
+    let timer;
+
+    const updateTimer = () => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      } else {
+        if (minutes > 0) {
+          setMinutes(minutes - 1);
+          setSeconds(59);
         } else {
-          if (minutes > 0) {
-            setMinutes(minutes - 1);
-            setSeconds(59);
-          } else {
-            // Timer has reached 0
-            // You can add additional logic here, like displaying a message or triggering another action
-            clearInterval(timer);
-          }
+          clearInterval(timer);
+          setIsRunning(false);
+          handleTimerCompletion();
         }
-      };
-  
-      // Start the timer when the component mounts
+      }
+    };
+
+    if (isRunning) {
       timer = setInterval(updateTimer, 1000);
-  
-      // Clean up the timer when the component unmounts
-      return () => clearInterval(timer);
-    }, [minutes, seconds]);
-  
-    return (
-      <div>
-        <p>
-          {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
-        </p>
-      </div>
-    );
+    }
+
+    return () => clearInterval(timer);
+  }, [minutes, seconds, isRunning]);
+
+  const handleTimerCompletion = () => {
+    // If the timer completes, toggle between 25 and 5 minutes
+    if (minutes === 0 && seconds === 0) {
+      if (isRunning) {
+
+        setMinutes(5);
+      } else {
+        setMinutes(25);
+      }
+      setIsRunning(true);
+    }
+  };
+
+  const handlePauseResumeClick = () => {
+    setIsRunning(!isRunning);
+  };
+
+  return (
+    <div>
+      <p>
+        {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
+      </p>
+      <button onClick={handlePauseResumeClick}>
+        {isRunning ? 'Pause' : 'Resume'}
+      </button>
+    </div>
+  );
 };
 
 export default PomodoroTimer;
