@@ -1,12 +1,12 @@
+import Headers from "./main/header";
+import Body from "./main/body";
+function App ()  {
 
-import Stopwatch from "./components/stopwatch";
-
-function App() {
   return (
     <div className="container"> 
-      <Stopwatch/>
+    <Headers/>
+    <Body/>
     </div>
-    
   );
 }
 
