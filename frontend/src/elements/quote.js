@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const RandomQuote = () => {
   const [quote, setQuote] = useState('');
@@ -25,12 +26,14 @@ const RandomQuote = () => {
   };
 
   return (
-    <div>
-      <blockquote>
-        <p>{quote}</p>
-        <footer>- {author}</footer>
+    <div className="container mt-5">
+      <blockquote className="blockquote">
+        <p className="mb-3">{quote}</p>
+        <footer className="blockquote-footer">- {author}</footer>
       </blockquote>
-      <button onClick={handleRefreshClick}>Refresh Quote</button>
+      <button className="btn btn-primary" onClick={handleRefreshClick}>
+        Refresh Quote
+      </button>
     </div>
   );
 };

@@ -1,5 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const DateTimeDisplay = () => {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -15,9 +15,8 @@ const DateTimeDisplay = () => {
   }, []); // The empty dependency array ensures the effect runs only once on mount
 
   return (
-    <header>
-      
-      <p>{currentDateTime.toLocaleString()}</p>
+    <header className="bg-dark text-white p-4">
+      <p className="h4">{currentDateTime.toLocaleString()}</p>
     </header>
   );
 };
