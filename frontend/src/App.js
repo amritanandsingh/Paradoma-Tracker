@@ -2,7 +2,7 @@ import React from "react";
 import Headers from "./main/header";
 import Body from "./main/body";
 import { useAuth0 } from "@auth0/auth0-react";
-import {MyComponent} from "./elements/demoAPIcall";
+import MyComponent from "./elements/demoAPIcall";
 
 function App() {
   const { user, loginWithRedirect, isAuthenticated, logout } = useAuth0();
@@ -13,9 +13,9 @@ function App() {
       <Headers />
       {isAuthenticated && <h3>Hello {user.name}</h3>}
       {isAuthenticated && <Body />}
-      <p>Amrit<p/>
+      
       {isAuthenticated && <MyComponent/>}
-      <p>Amrit<p/>
+      
       {isAuthenticated ? (
         <button onClick={(e) => logout()}>Log Out</button>
       ) : (
