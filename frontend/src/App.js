@@ -12,7 +12,7 @@ function App() {
       <Headers />
       {isAuthenticated && <h3>Hello {user.name}</h3>}
       {isAuthenticated && <Body />}
-
+      
       {isAuthenticated ? (
         <button onClick={(e) => logout()}>Log Out</button>
       ) : (
