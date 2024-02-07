@@ -15,30 +15,10 @@ const authConfig = {
 app.use(cors());
 app.use(express.json());
 
-const checkJwt = (req, res, next) => {
-  const token = req.headers.authorization;
-
-  if (!token) {
-    return res.status(401).json({ message: 'Unauthorized: Missing token' });
-  }
-
-  jsonwebtoken.verify(token, jwksRsa.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: `https://${authConfig.domain}/.well-known/jwks.json`,
-  }), (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: 'Unauthorized: Invalid token' });
-    }
-    req.user = decoded;
-    next();
-  });
-};
 
 app.use("/", require("./routes/index"));
 
-app.get('/hello', checkJwt, (req, res) => {
+app.get('/hello', (req, res) => {
   res.json({ message: 'Hello, this is a simple Express API!' });
 });
 
