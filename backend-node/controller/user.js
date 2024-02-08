@@ -64,31 +64,38 @@ module.exports.createUser = async (req, res) => {
 
 
 module.exports.fetchUserFocus = async (req, res) => {
-    
     try {
-        const {  email } = req.body;
+        const { email } = req.body;
         const existingUser = await userModel.findOne({ email });
-        //console.log(existingUser);
-        if (existingUser) {
-            return res.status(200).json({
-                message: "successfully get array of Focus",
-                data: existingUser.focusLength
-            });
-        } else{
+
+        if (!existingUser) {
             return res.status(400).json({
-                message: "User not Exist",
+                message: "User not found",
                 data: {}
             });
         }
-    }catch (error) {
+
+        // Extracting createdAt values from focus instances
+        const createdAtArray = [];
+        for (const focusId of existingUser.focusLength) {
+            const focusInstance = await focusModel.findById(focusId);
+            if (focusInstance) {
+                createdAtArray.push(focusInstance.createdAt);
+            }
+        }
+        
+        return res.status(200).json({
+            message: "Successfully fetched array of Focus",
+            data: createdAtArray
+        });
+    } catch (error) {
         return res.status(500).json({
             message: "Oops! Something went wrong at the server!",
-            data: {
-                error,
-            }
+            data: { error }
         });
     }
-}
+};
+
 
 module.exports.createFocus = async (req, res) => {
     try {
