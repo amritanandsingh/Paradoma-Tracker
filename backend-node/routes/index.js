@@ -1,9 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-const focusController = require("../controller/focus");
 
-router.get('/getcount',focusController.getCount);
-router.post('/setcount',focusController.setCount);
+const userController = require("../controller/user")
+
+router.get('/getcount',userController.fetchUserFocus);
+router.post('/setcount',userController.createFocus);
+
+router.post('/newUser' , userController.createUser);
+router.get('/getUser' , userController.getUser);
+router.get('/');
 
 module.exports = router;

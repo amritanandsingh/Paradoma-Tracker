@@ -13,7 +13,8 @@ const authConfig = {
 };
 
 app.use(cors());
-app.use(express.json());
+//app.use(express.json());
+app.use(express.urlencoded());
 
 
 app.use("/", require("./routes/index"));

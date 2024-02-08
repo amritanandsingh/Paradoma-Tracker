@@ -1,15 +1,32 @@
 const mongoose = require("mongoose");
 
-const focusSchema = new mongoose.Schema({
-    count: {
-        type: Number,
+const userSchema = new mongoose.Schema({
+    name: {
+        type: String,
         required: true,
     },
-    
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password:{
+        type: String,
+        
+    },
+    phoneNumber: {
+        type: String,
+    },
+    focusLength : [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'focus'
+        }
+    ]
 }, {
     timestamps: true,
 });
 
-const focusModel = mongoose.model("focus", focusSchema);
+const userModel = mongoose.model("user", userSchema);
 
-module.exports = focusModel;
+module.exports = userModel;
