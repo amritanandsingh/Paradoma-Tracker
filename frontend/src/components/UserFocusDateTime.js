@@ -7,7 +7,15 @@ const EmailDataComponent = ({ email }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://paradoma-tracker-node.onrender.com/getcount?email=${email}`);
+        const response = await fetch('https://paradoma-tracker-node.onrender.com/getcount', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: new URLSearchParams({
+            email: email
+          })
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
