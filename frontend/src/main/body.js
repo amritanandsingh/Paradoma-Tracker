@@ -1,6 +1,6 @@
 import PomodoroTimer from "../components/session"
 import AudioAlertOnRender from "../elements/audioplayer"
-function Body() {
+function Body( ) {
     return (
       <>
         <PomodoroTimer/>
